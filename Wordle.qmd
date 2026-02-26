@@ -25,6 +25,16 @@ pick_solution <- Filter(function(x) nchar(x) == 5, valid_solution_list)
 solution <- reactiveVal(sample(pick_solution, 1))
 attempts_left <- reactiveVal(6)
 letters_left <- reactiveVal(LETTERS)
+
+# Legend output (static explanation)
+output$legend <- renderText({
+  paste(
+    "*  = correct letter in correct position",
+    "+  = correct letter in wrong position",
+    "-  = letter not in the word",
+    sep = "\n"
+  )
+})
 ```
 
 ## Enter Your Guess
@@ -32,7 +42,6 @@ letters_left <- reactiveVal(LETTERS)
 ```{r}
 textInput("guess", "Enter a 5-letter word:")
 ```
-
 
 ```{r}
 actionButton("submit", "Submit Guess")
@@ -44,6 +53,12 @@ actionButton("submit", "Submit Guess")
 verbatimTextOutput("feedback")
 verbatimTextOutput("letters")
 verbatimTextOutput("attempts")
+```
+
+## Symbol Guide
+
+```{r}
+verbatimTextOutput("legend")
 ```
 
 ```{r}
